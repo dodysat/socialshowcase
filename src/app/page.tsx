@@ -1,8 +1,8 @@
-import { Instance } from "@/dto/instance"
-import { redirect } from "next/navigation"
+// import { Instance } from "@/dto/instance"
+// import { redirect } from "next/navigation"
 
-import redis from "@/redis"
-import { headers } from "next/headers"
+// import redis from "@/redis"
+// import { headers } from "next/headers"
 
 export default async function Home() {
   return (
