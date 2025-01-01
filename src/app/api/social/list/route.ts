@@ -1,7 +1,7 @@
 import { getSession } from "@/helpers/session"
 import { getSocials } from "@/repository/social"
 
-export async function GET(req: Request): Promise<Response> {
+export async function GET(): Promise<Response> {
   const session = await getSession()
   if (!session?.email) {
     return new Response(

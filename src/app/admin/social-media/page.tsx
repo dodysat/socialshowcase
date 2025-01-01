@@ -4,6 +4,7 @@ import { useLocalStorage } from "@mantine/hooks"
 import Add from "./add"
 import { useEffect, useState } from "react"
 import { Social } from "@/dto/social"
+import Image from "next/image"
 
 export default function SocialMedia() {
   const [, setModalAddSocial] = useLocalStorage({
@@ -12,17 +13,17 @@ export default function SocialMedia() {
   })
 
   const [socials, setSocials] = useState<Social[]>([])
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
 
   // fetch api to get socials
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true)
+        // setLoading(true)
         const response = await fetch("/api/social/list")
         const data = await response.json()
         setSocials(data)
-        setLoading(false)
+        // setLoading(false)
         console.log("Data fetched:", data)
       } catch (error) {
         console.error("Error fetching data:", error)
@@ -58,7 +59,7 @@ export default function SocialMedia() {
         {socials.map((social) => (
           <Card key={social.id} shadow="sm" padding="lg" radius="md" withBorder>
             <Flex justify="center">
-              <img
+              <Image
                 src={social.thumbnails}
                 alt={social.title}
                 width={200}
