@@ -1,12 +1,9 @@
 "use client"
-import { AddSocialRequest, Social, SocialType } from "@/dto/social"
+import { AddSocialRequest, SocialType } from "@/dto/social"
 import {
-  Card,
   Text,
   Button,
   Modal,
-  SimpleGrid,
-  Input,
   TextInput,
   Select,
   Flex,
@@ -17,8 +14,6 @@ import { useForm } from "@mantine/form"
 import { useLocalStorage } from "@mantine/hooks"
 import { useState } from "react"
 import { Channel } from "@/dto/youtube"
-import { setChannel } from "@/repository/youtube"
-import Image from "next/image"
 
 export default function AddSocialMedia() {
   const [modalAddSocial, setModalAddSocial] = useLocalStorage({

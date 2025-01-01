@@ -1,8 +1,5 @@
-import { SocialType } from "@/dto/social"
 import { getSession } from "@/helpers/session"
-import { fetchChannel } from "@/lib/youtube/youtube"
-import { addSocial, getSocial, getSocials } from "@/repository/social"
-import { setChannel } from "@/repository/youtube"
+import { getSocials } from "@/repository/social"
 
 export async function GET(req: Request): Promise<Response> {
   const session = await getSession()

@@ -1,23 +1,12 @@
 "use client"
-import {
-  Card,
-  Text,
-  Button,
-  Modal,
-  SimpleGrid,
-  Input,
-  Flex,
-  Avatar,
-  Badge,
-} from "@mantine/core"
+import { Card, Text, Button, SimpleGrid, Flex } from "@mantine/core"
 import { useLocalStorage } from "@mantine/hooks"
 import Add from "./add"
 import { useEffect, useState } from "react"
 import { Social } from "@/dto/social"
-import Image from "next/image"
 
 export default function SocialMedia() {
-  const [modalAddSocial, setModalAddSocial] = useLocalStorage({
+  const [, setModalAddSocial] = useLocalStorage({
     key: "modalAddSocial",
     defaultValue: false,
   })

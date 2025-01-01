@@ -10,6 +10,7 @@ export const fetchChannel = async (
     const data = await response.json()
     return data.items[0]
   } catch (error) {
+    console.error("Error fetching channel:", error)
     throw new Error("Failed to fetch channel")
   }
 }
