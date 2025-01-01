@@ -8,6 +8,7 @@ import {
 import { Flex } from "@mantine/core"
 import classes from "./Navbar.module.css"
 import Link from "next/link"
+import { useLocalStorage } from "@mantine/hooks"
 
 const data = [
   { link: "/admin/dashboard", label: "Dasbor", icon: IconLayoutDashboard },
@@ -31,7 +32,10 @@ const logout = async () => {
 }
 
 export function Navbar({ children }: { readonly children: React.ReactNode }) {
-  const [active, setActive] = useState("Dasbor")
+  const [active, setActive] = useLocalStorage({
+    key: "activeNavbar",
+    defaultValue: "Dasbor",
+  })
 
   const links = data.map((item) => (
     <Link
@@ -74,7 +78,8 @@ export function Navbar({ children }: { readonly children: React.ReactNode }) {
             </a>
           </div>
         </nav>
-        {children}
+
+        <div className={classes.childrenContainer}>{children}</div>
       </Flex>
     </div>
   )
