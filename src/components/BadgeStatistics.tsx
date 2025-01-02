@@ -20,25 +20,40 @@ const numberSeparation = (count: string) => {
 
 interface BadgeStatisticsProps {
   readonly count: string
-  readonly icon: React.ReactNode
+  readonly icon?: React.ReactNode
   readonly color: string
+  readonly isNotUsingTooltip?: boolean
+  readonly variant?: "filled" | "outline"
 }
 
 export default function BadgeStatistics({
   count,
   icon,
   color,
+  isNotUsingTooltip,
+  variant,
 }: BadgeStatisticsProps) {
+  if (!variant) {
+    variant = "outline"
+  }
+  const BadgeUI = (
+    <Badge color={color} radius="md" mt={5} px={3} variant={variant}>
+      <Flex align="center" gap={2}>
+        {icon}
+        {countConverter(count)}
+      </Flex>
+    </Badge>
+  )
+
   return (
     <div>
-      <Tooltip label={numberSeparation(count)} position="bottom">
-        <Badge variant="outline" color={color} radius="md" mt={5} px={3}>
-          <Flex align="center" gap={2}>
-            {icon}
-            {countConverter(count)}
-          </Flex>
-        </Badge>
-      </Tooltip>
+      {isNotUsingTooltip ? (
+        BadgeUI
+      ) : (
+        <Tooltip label={numberSeparation(count)} position="bottom">
+          {BadgeUI}
+        </Tooltip>
+      )}
     </div>
   )
 }

@@ -35,7 +35,7 @@ export default async function DetailSocialPage({
       <Breadcrumbs mb={20}>{breadcrumbItems}</Breadcrumbs>
 
       <SimpleGrid
-        cols={{ base: 1, sm: 2, lg: 4, xl: 5 }}
+        cols={{ base: 1, xs: 2, sm: 3, lg: 4, xl: 5 }}
         spacing={{ base: "md" }}
         verticalSpacing={{ base: "md" }}
       >

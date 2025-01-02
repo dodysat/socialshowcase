@@ -138,7 +138,13 @@ export default function SocialMedia() {
           </Card>
         ))}
 
-        <Card shadow="none" padding="lg" radius="none" withBorder={false}>
+        <Card
+          shadow="none"
+          padding="lg"
+          radius="none"
+          withBorder={false}
+          bg="transparent"
+        >
           <Button
             color="blue"
             m="auto"

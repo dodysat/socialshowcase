@@ -1,6 +1,13 @@
 "use client"
 import { Video } from "@/dto/youtube"
-import { Card, Flex, Image, Text } from "@mantine/core"
+import {
+  BackgroundImage,
+  Card,
+  Flex,
+  Image,
+  Text,
+  Tooltip,
+} from "@mantine/core"
 
 import {
   IconThumbUp,
@@ -24,18 +31,54 @@ export default function YoutubeVideos({ video }: { readonly video: Video }) {
     100
   ).toFixed(2)
 
+  const parseYouTubeDuration = (duration: string) => {
+    // Regular expression to match ISO 8601 duration components
+    const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/
+    const matches = regex.exec(duration)
+
+    // Extract hours, minutes, and seconds (convert undefined matches to 0)
+    const hours = parseInt(matches?.[1] || "0", 10)
+    const minutes = parseInt(matches?.[2] || "0", 10)
+    const seconds = parseInt(matches?.[3] || "0", 10)
+
+    // Convert the duration to total seconds
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds
+
+    return {
+      hours,
+      minutes,
+      seconds,
+      totalSeconds,
+      formatted: `${hours > 0 ? hours + ":" : ""}${minutes}:${seconds
+        .toString()
+        .padStart(2, "0")}`,
+    }
+  }
+
   return (
     <div>
-      <Card key={video.id} padding="none" radius="md">
-        <Image
-          src={video.snippet.thumbnails.maxres.url}
-          alt={video.snippet.title}
-          h="180"
-          w="auto"
-          fit="scale-down"
-          radius="md"
-          onClick={() => openVideo(video)}
-        />
+      <Card key={video.id} padding="none" radius="md" bg="transparent">
+        <div
+          style={{ position: "relative", width: "100%", aspectRatio: "16 / 9" }}
+        >
+          <BackgroundImage
+            src={video.snippet.thumbnails.maxres.url}
+            h="100%"
+            radius="md"
+            onClick={() => openVideo(video)}
+          >
+            <Flex justify="right" align="center" mt={5} mr={5}>
+              <BadgeStatistics
+                color="red"
+                count={
+                  parseYouTubeDuration(video.contentDetails.duration).formatted
+                }
+                isNotUsingTooltip={true}
+                variant="filled"
+              />
+            </Flex>
+          </BackgroundImage>
+        </div>
         <Flex justify="left" align="center" mt={5} gap={5}>
           <BadgeStatistics
             color="blue"
@@ -57,14 +100,17 @@ export default function YoutubeVideos({ video }: { readonly video: Video }) {
             color="red"
             count={engagementRate}
             icon={<IconPercentage size={16} />}
+            isNotUsingTooltip={true}
           />
         </Flex>
 
         <TimeStamp time={video.snippet.publishedAt} />
 
-        <Text truncate="end" fw={500} mt={2} onClick={() => openVideo(video)}>
-          {video.snippet.title}
-        </Text>
+        <Tooltip label={video.snippet.title}>
+          <Text truncate="end" fw={500} mt={2} onClick={() => openVideo(video)}>
+            {video.snippet.title}
+          </Text>
+        </Tooltip>
       </Card>
     </div>
   )
