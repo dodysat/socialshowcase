@@ -1,5 +1,5 @@
 import { getSession } from "@/helpers/session"
-import { getChannel, getVideos } from "@/repository/youtube"
+import { getChannel } from "@/repository/youtube"
 
 export async function GET(req: Request): Promise<Response> {
   const session = await getSession()
