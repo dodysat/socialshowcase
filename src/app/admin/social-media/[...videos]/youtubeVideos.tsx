@@ -1,13 +1,6 @@
 "use client"
 import { Video } from "@/dto/youtube"
-import {
-  BackgroundImage,
-  Card,
-  Flex,
-  Image,
-  Text,
-  Tooltip,
-} from "@mantine/core"
+import { BackgroundImage, Card, Flex, Text, Tooltip } from "@mantine/core"
 
 import {
   IconThumbUp,
