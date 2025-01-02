@@ -23,9 +23,8 @@ export async function GET(req: Request): Promise<Response> {
   }
 
   const channel = await getChannel(session.hostname, channelId)
-  const videos = await getVideos(session.hostname, channelId)
 
-  return new Response(JSON.stringify({ channel, videos }), {
+  return new Response(JSON.stringify({ channel }), {
     headers: { "Content-Type": "application/json" },
   })
 }

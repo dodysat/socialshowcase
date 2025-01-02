@@ -3,8 +3,9 @@ import { Card, Text, Button, SimpleGrid, Flex } from "@mantine/core"
 import { useLocalStorage } from "@mantine/hooks"
 import Add from "./add"
 import { useEffect, useState } from "react"
-import { Social } from "@/dto/social"
-import { useRouter } from "next/navigation"
+import { Social, SocialType } from "@/dto/social"
+import { useRouter } from "nextjs-toploader/app"
+import YoutubeSocialBadges from "./YoutubeSocialBadges"
 
 export default function SocialMedia() {
   const router = useRouter()
@@ -25,7 +26,6 @@ export default function SocialMedia() {
         const data = await response.json()
         setSocials(data)
         // setLoading(false)
-        console.log("Data fetched:", data)
       } catch (error) {
         console.error("Error fetching data:", error)
       }
@@ -35,15 +35,15 @@ export default function SocialMedia() {
   }, [])
 
   const openSocial = (social: Social) => {
-    if (social.type === "YOUTUBE") {
+    if (social.type === SocialType.YOUTUBE) {
       window.open(`https://www.youtube.com/${social.username}`)
     }
 
-    if (social.type === "INSTAGRAM") {
+    if (social.type === SocialType.INSTAGRAM) {
       window.open(`https://www.instagram.com/${social.username}`)
     }
 
-    if (social.type === "TIKTOK") {
+    if (social.type === SocialType.TIKTOK) {
       window.open(`https://www.tiktok.com/@${social.username}`)
     }
   }
@@ -74,15 +74,22 @@ export default function SocialMedia() {
             </Flex>
             <Flex justify="center" mt="md">
               {social.type === "YOUTUBE" && (
-                <Button
-                  color="#FF0000"
-                  size="xs"
-                  onClick={() => {
-                    openSocial(social)
-                  }}
-                >
-                  {social.type}
-                </Button>
+                <div>
+                  <Flex justify="center">
+                    <Button
+                      color="#FF0000"
+                      size="xs"
+                      onClick={() => {
+                        openSocial(social)
+                      }}
+                    >
+                      {social.type}
+                    </Button>
+                  </Flex>
+                  <Flex justify="center">
+                    <YoutubeSocialBadges id={social.id} />
+                  </Flex>
+                </div>
               )}
 
               {social.type === "INSTAGRAM" && (

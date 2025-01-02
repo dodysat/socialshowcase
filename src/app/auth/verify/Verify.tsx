@@ -2,7 +2,9 @@
 import { VerifyOTPRequest } from "@/dto/auth"
 import { Card, Text, Button, Group, Flex, PinInput, Alert } from "@mantine/core"
 import { useForm } from "@mantine/form"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
+
 import { useState } from "react"
 
 export default function Verify() {

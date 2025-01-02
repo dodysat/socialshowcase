@@ -3,7 +3,6 @@ import redis from "@/redis"
 
 export const isAllowedToSendOTP = async (email: string): Promise<boolean> => {
   const hostname = await Hostname()
-  console.log("hostname", hostname)
   const isInitializing = await redis.exists(`${hostname}:isInitializing`)
   if (isInitializing === 1) {
     return true

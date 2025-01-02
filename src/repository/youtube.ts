@@ -41,10 +41,8 @@ export const getVideos = async (
 ): Promise<Video[]> => {
   const videos: Video[] =
     (await redis.get(`${hostname}:youtube-videos:${channelId}`)) || []
-  console.log("GET VIDEOS", videos)
   if (!videos || videos.length === 0) {
     const fetchedVideos = await fetchLastVideos(channelId)
-    console.log("FETCHEDVIDEOS", fetchedVideos)
     const ttl = 60 * 5
     await redis.setex(
       `${hostname}:youtube-videos:${channelId}`,

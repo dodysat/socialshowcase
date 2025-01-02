@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import NextTopLoader from "nextjs-toploader"
 
 import "@mantine/core/styles.css"
 
@@ -37,6 +38,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <NextTopLoader showSpinner={false} color="#7AD1DD" />
+
         <MantineProvider>{children}</MantineProvider>
       </body>
     </html>

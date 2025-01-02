@@ -25,7 +25,6 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const otpExist = await getOTP(body.email)
-  console.log("otpExist", otpExist)
   if (otpExist) {
     return new Response(
       JSON.stringify({
