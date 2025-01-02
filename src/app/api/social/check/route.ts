@@ -1,7 +1,7 @@
 import { SocialType } from "@/dto/social"
 import { getSession } from "@/helpers/session"
 import { fetchChannel } from "@/lib/youtube/youtube"
-import { getSocial } from "@/repository/social"
+import { getSocialByType } from "@/repository/social"
 
 export async function POST(req: Request): Promise<Response> {
   const session = await getSession()
@@ -27,7 +27,7 @@ export async function POST(req: Request): Promise<Response> {
     )
   }
 
-  const socialExist = await getSocial(
+  const socialExist = await getSocialByType(
     session.hostname,
     body.username,
     body.type

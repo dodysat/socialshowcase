@@ -4,8 +4,10 @@ import { useLocalStorage } from "@mantine/hooks"
 import Add from "./add"
 import { useEffect, useState } from "react"
 import { Social } from "@/dto/social"
+import { useRouter } from "next/navigation"
 
 export default function SocialMedia() {
+  const router = useRouter()
   const [, setModalAddSocial] = useLocalStorage({
     key: "modalAddSocial",
     defaultValue: false,
@@ -44,6 +46,10 @@ export default function SocialMedia() {
     if (social.type === "TIKTOK") {
       window.open(`https://www.tiktok.com/@${social.username}`)
     }
+  }
+
+  const detailSocial = (social: Social) => {
+    router.push(`/admin/social-media/${social.id}`)
   }
 
   return (
@@ -111,7 +117,15 @@ export default function SocialMedia() {
             </Flex>
             {/* <Text size="sm">{social.description}</Text> */}
 
-            <Button color="blue" fullWidth mt="md" radius="md">
+            <Button
+              color="blue"
+              fullWidth
+              mt="md"
+              radius="md"
+              onClick={() => {
+                detailSocial(social)
+              }}
+            >
               Detail
             </Button>
           </Card>

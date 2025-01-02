@@ -23,6 +23,13 @@ export interface Channel {
     hiddenSubscriberCount: boolean
     videoCount: string
   }
+  contentDetails: {
+    relatedPlaylists: {
+      likes: string
+      uploads: string
+    }
+  }
+  exp?: number
 }
 
 export interface Video {
@@ -43,10 +50,24 @@ export interface Video {
     tags: string[]
     categoryId: string
   }
+  contentDetails: {
+    duration: string
+    dimension: string
+    definition: string
+    caption: string
+    licensedContent: boolean
+    projection: string
+  }
   statistics: {
     viewCount: string
     likeCount: string
     favoriteCount: string
     commentCount: string
+  }
+}
+
+export interface PlaylistItem {
+  contentDetails: {
+    videoId: string
   }
 }

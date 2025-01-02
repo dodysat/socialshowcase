@@ -5,6 +5,7 @@ export interface Social {
   description: string
   thumbnails: string
   type: SocialType
+  exp: number
 }
 
 export interface AddSocialRequest {

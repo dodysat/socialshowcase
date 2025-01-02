@@ -1,7 +1,7 @@
 import { SocialType } from "@/dto/social"
 import { getSession } from "@/helpers/session"
 import { fetchChannel } from "@/lib/youtube/youtube"
-import { addSocial, getSocial } from "@/repository/social"
+import { addSocial, getSocialByType } from "@/repository/social"
 import { setChannel } from "@/repository/youtube"
 
 export async function POST(req: Request): Promise<Response> {
@@ -28,7 +28,7 @@ export async function POST(req: Request): Promise<Response> {
     )
   }
 
-  const socialExist = await getSocial(
+  const socialExist = await getSocialByType(
     session.hostname,
     body.username,
     body.type
@@ -59,6 +59,8 @@ export async function POST(req: Request): Promise<Response> {
         }
       )
     }
+    const exp = new Date().getTime() + 1000 * 60 * 60 * 24 * 5
+
     await addSocial(session.hostname, {
       id: channel.id,
       username: channel.snippet.customUrl,
@@ -66,9 +68,10 @@ export async function POST(req: Request): Promise<Response> {
       description: channel.snippet.description,
       thumbnails: channel.snippet.thumbnails.high.url,
       type: SocialType.YOUTUBE,
+      exp,
     })
 
-    await setChannel(session.hostname, channel)
+    await setChannel(session.hostname, channel.id)
 
     return new Response(
       JSON.stringify({
